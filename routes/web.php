@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/hello', function () {
+    return '<h1>Hello World</h1>';
+});
+
+// /resources/views/pages was created to post to
+Route::get('/about', function () {
+    return view('pages/about');
+});
+
+// This is how you put a variable in the url. You can have multiple variables
+Route::get('/users/{id}/{name}', function ($id, $name) {
+    return "This is user ".$name." with an id of ".$id;
+});
