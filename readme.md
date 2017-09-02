@@ -51,3 +51,66 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+
+# My notes
+
+### Routing:
+Routes are contained in /routes/web.php
+
+You want to route to route to controllers, which will pass in the view.
+```
+// lsapp.dev/hello  will display header tag with 'Hello World' in it
+Route::get('/hello', function () {
+    return '<h1>Hello World</h1>';
+});
+
+// lsapp.dev/welcome  will display the welcome view
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
+// TODO: Add controller example
+```
+
+### Views
+View are contained in /resources/views/...
+
+You can create new folders in here which can be referenced by routes or controllers.
+Blade is used to make views.
+
+###### /resources/view/pages/about.blade.php
+
+Then views are accessed though code:
+```
+Route::get('/about', function () {
+    // return view(pages.about);
+    return view(pages/about);
+});
+```
+More examples in /routes/web.php
+
+### Controllers:
+Controllers are contained in /app/Http/Controllers/...
+
+To create a new controller, open a terminal and type:
+
+```
+php artisan make:controller {controller name}
+...
+php artisan make:controller PagesController
+```
+This will create a controller and put it in /app/Http/Controllers...
+
+Created file contains namespace, requests libraries to make requests, and creates controller that extends Controller class
+
+### .env
+Contains stuff
+###### APP_NAME
+Title of webpage. Can be referred to with:
+```
+{{config('app.name')}}
+or
+{{config('app.name', 'LSAPP')}}
+```
+###### Database info
