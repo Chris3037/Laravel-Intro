@@ -104,6 +104,69 @@ This will create a controller and put it in /app/Http/Controllers...
 
 Created file contains namespace, requests libraries to make requests, and creates controller that extends Controller class
 
+##### How to pass a single value through controllers:
+```
+return view('pages.index', compact('title'));
+or
+return view('pages.index')->with('title', $title);
+```
+##### How to retrieve that value in files (views):
+```
+<h1><?php echo $title ?></h1>
+or
+<h1>{{$title}}</h1>
+```
+##### How to pass MULTIPLE values through controllers:
+```
+
+$data = array (
+	'title' => 'Our Services',
+	'services' => ['Web Design', 'Programming', 'SEO']
+);
+return view('pages.services')->with($data);
+```
+##### Loop through passed array and use variables
+```
+<h1>{{$title}}</h1>
+@if(count($services) > 0)
+	<ul>
+	@foreach($services as $service)
+		<li>{{$service}}</li>
+	@endforeach
+	</ul>
+@endif
+```
+
+### Layout Pages
+Layout Pages are contained in the views. /resources/views/...
+###### /resources/views/layouts/app.blade.php
+
+In layout page, use @yield
+```
+<!doctype html>
+<html>
+    <head>
+    </head>
+    <body>@yield('content')
+    </body>
+</html>
+```
+And in the actual pages, use @extends and @sections and @endsection
+```
+@extends('layouts.app')
+
+@section('content')
+
+		<h1>Welcome to Laravel</h1>
+		<p>This is a Laravel application</p>
+@endsection
+
+```
+
+
+
+
+
 ### .env
 Contains stuff
 ###### APP_NAME
@@ -114,3 +177,30 @@ or
 {{config('app.name', 'LSAPP')}}
 ```
 ###### Database info
+
+
+### CSS
+##### You need node.js installed for compiling things. To install type in git bash (didn't work in atom terminal) at the project root:
+```
+npm installed
+```
+Public css folder contains compiled css. You _can_ make changes to this folder, but only if you want to use your own stylesheets, and not the included stuff. To use your own stuff, just make changes to the /public/css/app.css file.
+
+To make changes that you want to compile, change the /resources/assets/sass files
+
+To save any changes you made, you must recompile. In console, type:
+```
+npm run dev
+```
+To not run dev after each change, type in:
+##### This sacrifices the terminal
+```
+npm run watch
+```
+This you should run in atom's terminal.
+
+
+To use the included bootstrap, put in the layout file:
+```
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
+```

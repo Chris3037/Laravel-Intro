@@ -11,14 +11,24 @@ class PagesController extends Controller
 		// return 'INDEX';
 
 		// Will look in views/pages folder for index.blade.php
-		return view('pages.index');
+
+		$title = "Welcome to Laravel!";
+		// Pass a single value to the view.
+		// return view('pages.index', compact('title'));
+		return view('pages.index')->with('title', $title);
 	}
 
 	public function About() {
-		return view('pages.about');
+		$title = "About Us";
+		return view('pages.about')->with('title', $title);
 	}
 
 	public function Services() {
-		return view('pages.services');
+		// $title = "Our Services";
+		$data = array (
+			'title' => 'Our Services',
+			'services' => ['Web Design', 'Programming', 'SEO']
+		);
+		return view('pages.services')->with($data);
 	}
 }
